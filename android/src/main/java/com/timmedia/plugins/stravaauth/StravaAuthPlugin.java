@@ -1,5 +1,8 @@
 package com.timmedia.plugins.stravaauth;
 
+import android.content.Intent;
+import android.net.Uri;
+
 import com.getcapacitor.JSObject;
 import com.getcapacitor.Plugin;
 import com.getcapacitor.PluginCall;
@@ -12,11 +15,19 @@ public class StravaAuthPlugin extends Plugin {
     private StravaAuth implementation = new StravaAuth();
 
     @PluginMethod
-    public void echo(PluginCall call) {
-        String value = call.getString("value");
+    public void authorize(PluginCall call) {
+         Uri intentUri = Uri.parse("https://www.strava.com/oauth/mobile/authorize")
+                 .buildUpon()
+                 .appendQueryParameter("client_id", call.getString("clientId"))
+                 .appendQueryParameter("redirect_uri", call.getString("redirectUri"))
+                 .appendQueryParameter("response_type", call.getString("responseType"))
+                 .appendQueryParameter("approval_prompt", call.getString("approvalPrompt"))
+                 .appendQueryParameter("scope", call.getString("scope"))
+                 .appendQueryParameter("state", call.getString("state"))
+                 .build();
 
-        JSObject ret = new JSObject();
-        ret.put("value", implementation.echo(value));
-        call.resolve(ret);
+        Intent intent = new Intent(Intent.ACTION_VIEW, intentUri);
+        getContext().startActivity(intent);
+        call.resolve();
     }
 }
