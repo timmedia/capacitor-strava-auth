@@ -52,7 +52,7 @@ Authorize using the Strava API to receive an authorization code.
 | **`redirectUri`**    | <code>string</code>                                         | URL to redirect to after authorization.                                                                      |
 | **`responseType`**   | <code>'code'</code>                                         | Must be `code`, accorind to Strava docs.                                                                     |
 | **`approvalPrompt`** | <code>'force' \| 'auto'</code>                              | Force prompt again even if already authorized earlier.                                                       |
-| **`scope`**          | <code><a href="#stravaauthscope">StravaAuthScope</a></code> | See {@link https://developers.strava.com/docs/authentication/#details-about-requesting-access\|Strava Docs}. |
+| **`scope`**          | <code><a href="#stravaauthscope">StravaAuthScope</a></code> | See Strava Docs: {@link https://developers.strava.com/docs/authentication/#details-about-requesting-access}. |
 | **`state`**          | <code>string</code>                                         | Returned as a parameter when redirected to `redirectUri`.                                                    |
 
 

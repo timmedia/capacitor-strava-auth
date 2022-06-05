@@ -23,7 +23,7 @@ export interface StravaAuthOptions {
    */
   approvalPrompt: 'force' | 'auto';
   /**
-   * See {@link https://developers.strava.com/docs/authentication/#details-about-requesting-access|Strava Docs}.
+   * See Strava Docs: {@link https://developers.strava.com/docs/authentication/#details-about-requesting-access}.
    */
   scope: StravaAuthScope;
   /**
