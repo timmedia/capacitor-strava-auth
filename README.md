@@ -1,6 +1,10 @@
 # @timmedia/capacitor-strava-auth
 
-Use the Strava authentication API in your capacitor app.
+Use the Strava authentication API in your capacitor app. Works on iOS, Android and Web. On native platforms, the Strava app is opened if installed. If it is not installed, the web authorization page is opened instead. This plugin does not make use of a custom callback URL scheme. Instead, the page specified with `redirectUri` is opened in all cases after authorization is granted. Ensure that this URL is a deep link and handle the parameters accordingly (`state`, `code` and `scope` are passed).
+
+For iOS, add `strava` in `Info.plist` under `LSApplicationQueriesSchemes` (array) to allow your app to open Strava.
+
+More information is found in the [Strava Authentication Developer guide](https://developers.strava.com/docs/authentication/). Do note that after successful authorization you still need to exchange the authorization code for an access token.
 
 ## Install
 
@@ -28,6 +32,8 @@ npx cap sync
 authorize(options: StravaAuthOptions) => Promise<void>
 ```
 
+Authorize using the Strava API to receive an authorization code.
+
 | Param         | Type                                                            |
 | ------------- | --------------------------------------------------------------- |
 | **`options`** | <code><a href="#stravaauthoptions">StravaAuthOptions</a></code> |
@@ -40,14 +46,14 @@ authorize(options: StravaAuthOptions) => Promise<void>
 
 #### StravaAuthOptions
 
-| Prop                 | Type                                                        |
-| -------------------- | ----------------------------------------------------------- |
-| **`clientId`**       | <code>string</code>                                         |
-| **`redirectUri`**    | <code>string</code>                                         |
-| **`responseType`**   | <code>'code'</code>                                         |
-| **`approvalPrompt`** | <code>'force' \| 'auto'</code>                              |
-| **`scope`**          | <code><a href="#stravaauthscope">StravaAuthScope</a></code> |
-| **`state`**          | <code>string</code>                                         |
+| Prop                 | Type                                                        | Description                                                                                                  |
+| -------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| **`clientId`**       | <code>string</code>                                         | Your App ID, found in the Strava settings.                                                                   |
+| **`redirectUri`**    | <code>string</code>                                         | URL to redirect to after authorization.                                                                      |
+| **`responseType`**   | <code>'code'</code>                                         | Must be `code`, accorind to Strava docs.                                                                     |
+| **`approvalPrompt`** | <code>'force' \| 'auto'</code>                              | Force prompt again even if already authorized earlier.                                                       |
+| **`scope`**          | <code><a href="#stravaauthscope">StravaAuthScope</a></code> | See {@link https://developers.strava.com/docs/authentication/#details-about-requesting-access\|Strava Docs}. |
+| **`state`**          | <code>string</code>                                         | Returned as a parameter when redirected to `redirectUri`.                                                    |
 
 
 ### Enums
